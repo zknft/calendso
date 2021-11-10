@@ -23,6 +23,7 @@ import { useLocale } from "@lib/hooks/useLocale";
 import { collectPageParameters, telemetryEventTypes, useTelemetry } from "@lib/telemetry";
 import { trpc } from "@lib/trpc";
 
+import CustomBranding from "@components/CustomBranding";
 import Loader from "@components/Loader";
 import { HeadSeo } from "@components/seo/head-seo";
 import Avatar from "@components/ui/Avatar";
@@ -100,7 +101,7 @@ export function ShellSubHeading(props: {
   return (
     <div className={classNames("block sm:flex justify-between mb-3", props.className)}>
       <div>
-        <h2 className="flex items-center content-center space-x-2 text-base font-bold text-gray-900 leading-6">
+        <h2 className="flex items-center content-center space-x-2 text-base font-bold leading-6 text-gray-900">
           {props.title}
         </h2>
         {props.subtitle && <p className="mr-4 text-sm text-neutral-500">{props.subtitle}</p>}
@@ -166,18 +167,22 @@ export default function Shell(props: {
 
   const pageTitle = typeof props.heading === "string" ? props.heading : props.title;
 
+  const query = useMeQuery();
+  const user = query.data;
+
   const i18n = useViewerI18n();
 
   if (i18n.status === "loading" || isRedirectingToOnboarding || loading) {
     // show spinner whilst i18n is loading to avoid language flicker
     return (
-      <div className="z-50 absolute w-full h-screen bg-gray-50 flex items-center">
+      <div className="absolute z-50 flex items-center w-full h-screen bg-gray-50">
         <Loader />
       </div>
     );
   }
   return (
     <>
+      <CustomBranding val={user?.brandColor || "#292929"} />
       <HeadSeo
         title={pageTitle ?? "Cal.com"}
         description={props.subtitle ? props.subtitle?.toString() : ""}
@@ -225,7 +230,7 @@ export default function Shell(props: {
                   ))}
                 </nav>
               </div>
-              <div className="p-2 pt-2 pr-2 hover:bg-gray-100 rounded-sm m-2">
+              <div className="p-2 pt-2 pr-2 m-2 rounded-sm hover:bg-gray-100">
                 <UserDropdown />
               </div>
             </div>
@@ -338,7 +343,7 @@ function UserDropdown({ small }: { small?: boolean }) {
             target="_blank"
             rel="noopener noreferrer"
             href={`${process.env.NEXT_PUBLIC_APP_URL}/${user?.username || ""}`}
-            className="flex px-4 py-2 text-sm text-gray-700 items-center">
+            className="flex items-center px-4 py-2 text-sm text-gray-700">
             <ExternalLinkIcon className="w-5 h-5 mr-3 text-gray-500" /> {t("view_public_page")}
           </a>
         </DropdownMenuItem>
