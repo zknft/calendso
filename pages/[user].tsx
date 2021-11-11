@@ -10,7 +10,6 @@ import { inferSSRProps } from "@lib/types/inferSSRProps";
 
 import EventTypeDescription from "@components/eventtype/EventTypeDescription";
 import { HeadSeo } from "@components/seo/head-seo";
-import Avatar from "@components/ui/Avatar";
 
 import { ssrInit } from "@server/lib/ssr";
 
@@ -30,19 +29,8 @@ export default function User(props: inferSSRProps<typeof getServerSideProps>) {
         avatar={user.avatar || undefined}
       />
       {isReady && (
-        <div className="bg-neutral-50 dark:bg-black h-screen">
-          <main className="max-w-3xl mx-auto py-24 px-4">
-            <div className="mb-8 text-center">
-              <Avatar
-                imageSrc={user.avatar}
-                className="mx-auto w-24 h-24 rounded-full mb-4"
-                alt={nameOrUsername}
-              />
-              <h1 className="font-cal text-3xl font-bold text-neutral-900 dark:text-white mb-1">
-                {nameOrUsername}
-              </h1>
-              <p className="text-neutral-500 dark:text-white">{user.bio}</p>
-            </div>
+        <div className="bg-neutral-50 dark:bg-black h-screen flex flex-wrap content-center">
+          <main className="max-w-3xl mx-auto py-4 px-4 flex-1">
             <div className="space-y-6" data-testid="event-types">
               {eventTypes.map((type) => (
                 <div

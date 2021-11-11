@@ -19,7 +19,6 @@ import prisma from "@lib/prisma";
 import { inferSSRProps } from "@lib/types/inferSSRProps";
 
 import { HeadSeo } from "@components/seo/head-seo";
-import Button from "@components/ui/Button";
 
 dayjs.extend(utc);
 dayjs.extend(toArray);
@@ -89,7 +88,7 @@ export default function Success(props: inferSSRProps<typeof getServerSideProps>)
           title={needsConfirmation ? t("booking_submitted") : t("booking_confirmed")}
           description={needsConfirmation ? t("booking_submitted") : t("booking_confirmed")}
         />
-        <main className="max-w-3xl py-24 mx-auto">
+        <main className="max-w-3xl mx-auto">
           <div className="fixed inset-0 z-50 overflow-y-auto">
             <div className="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
               <div className="fixed inset-0 my-4 transition-opacity sm:my-0" aria-hidden="true">
@@ -97,7 +96,7 @@ export default function Success(props: inferSSRProps<typeof getServerSideProps>)
                   &#8203;
                 </span>
                 <div
-                  className="inline-block px-8 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white border rounded-sm dark:bg-gray-800 border-neutral-200 dark:border-neutral-700 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:py-6"
+                  className="inline-block px-8 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white border rounded-sm dark:bg-gray-800 border-neutral-200 dark:border-neutral-700 sm:align-middle sm:max-w-lg sm:w-full sm:py-6"
                   role="dialog"
                   aria-modal="true"
                   aria-labelledby="modal-headline">
@@ -238,31 +237,6 @@ export default function Success(props: inferSSRProps<typeof getServerSideProps>)
                           </a>
                         </Link>
                       </div>
-                    </div>
-                  )}
-                  {!props.hideBranding && (
-                    <div className="pt-4 text-xs text-center text-gray-400 dark:border-gray-900 dark:text-white">
-                      <a href="https://cal.com/signup">{t("create_booking_link_with_calcom")}</a>
-
-                      <form
-                        onSubmit={(e) => {
-                          e.preventDefault();
-                          router.push(`https://cal.com/signup?email=` + (e as any).target.email.value);
-                        }}
-                        className="flex mt-4">
-                        <input
-                          type="email"
-                          name="email"
-                          id="email"
-                          inputMode="email"
-                          defaultValue={router.query.email}
-                          className="block w-full text-gray-600 border-gray-300 shadow-sm dark:bg-brand dark:text-white dark:border-gray-900 focus:ring-black focus:border-brand sm:text-sm"
-                          placeholder="rick.astley@cal.com"
-                        />
-                        <Button type="submit" className="min-w-max" color="primary">
-                          {t("try_for_free")}
-                        </Button>
-                      </form>
                     </div>
                   )}
                 </div>

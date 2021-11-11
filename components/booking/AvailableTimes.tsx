@@ -52,7 +52,7 @@ const AvailableTimes: FC<AvailableTimesProps> = ({
   });
 
   return (
-    <div className="sm:pl-4 mt-8 sm:mt-0 text-center sm:w-1/3 md:-mb-5">
+    <div className="sm:pl-4 mt-0 sm:mt-0 text-center sm:w-1/3 md:-mb-5">
       <div className="text-gray-600 font-light text-lg mb-4 text-left">
         <span className="w-1/2 dark:text-white text-gray-600">
           <strong>{t(date.format("dddd").toLowerCase())}</strong>

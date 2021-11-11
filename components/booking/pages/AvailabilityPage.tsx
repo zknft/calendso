@@ -12,7 +12,6 @@ import { asStringOrNull } from "@lib/asStringOrNull";
 import { timeZone } from "@lib/clock";
 import { useLocale } from "@lib/hooks/useLocale";
 import useTheme from "@lib/hooks/useTheme";
-import { isBrandingHidden } from "@lib/isBrandingHidden";
 import { collectPageParameters, telemetryEventTypes, useTelemetry } from "@lib/telemetry";
 
 import AvailableTimes from "@components/booking/AvailableTimes";
@@ -20,7 +19,6 @@ import DatePicker from "@components/booking/DatePicker";
 import TimeOptions from "@components/booking/TimeOptions";
 import { HeadSeo } from "@components/seo/head-seo";
 import AvatarGroup from "@components/ui/AvatarGroup";
-import PoweredByCal from "@components/ui/PoweredByCal";
 
 import { AvailabilityPageProps } from "../../../pages/[user]/[type]";
 import { AvailabilityTeamPageProps } from "../../../pages/team/[slug]/[type]";
@@ -95,11 +93,11 @@ const AvailabilityPage = ({ profile, eventType, workingHours }: Props) => {
         name={profile.name}
         avatar={profile.image}
       />
-      <div>
+      <div className="bg-neutral-50 dark:bg-black h-screen flex flex-wrap content-center">
         <main
           className={
-            "mx-auto my-0 md:my-24 transition-max-width ease-in-out duration-500 " +
-            (selectedDate ? "max-w-5xl" : "max-w-3xl")
+            "mx-auto my-0 transition-max-width ease-in-out duration-500 " +
+            (selectedDate ? "max-w-6xl" : "max-w-3xl")
           }>
           {isReady && (
             <div className="bg-white border-gray-200 rounded-sm sm:dark:border-gray-600 dark:bg-gray-900 md:border">
@@ -220,7 +218,6 @@ const AvailabilityPage = ({ profile, eventType, workingHours }: Props) => {
               </div>
             </div>
           )}
-          {(!eventType.users[0] || !isBrandingHidden(eventType.users[0])) && <PoweredByCal />}
         </main>
       </div>
     </>
