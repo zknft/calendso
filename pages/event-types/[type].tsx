@@ -615,6 +615,81 @@ const EventTypePage = (props: inferSSRProps<typeof getServerSideProps>) => {
                   </div>
                 )}
 
+                {hasPaymentIntegration && (
+                  <>
+                    <hr className="border-neutral-200" />
+                    <div className="block sm:flex">
+                      <div className="mb-4 min-w-48 sm:mb-0">
+                        <label htmlFor="payment" className="flex mt-2 text-sm font-medium text-neutral-700">
+                          {t("payment")}
+                        </label>
+                      </div>
+
+                      <div className="flex flex-col">
+                        <div className="w-full">
+                          <div className="items-center block sm:flex">
+                            <div className="w-full">
+                              <div className="relative flex items-start">
+                                <div className="flex items-center h-5">
+                                  <input
+                                    onChange={(event) => setRequirePayment(event.target.checked)}
+                                    id="requirePayment"
+                                    name="requirePayment"
+                                    type="checkbox"
+                                    className="w-4 h-4 border-gray-300 rounded focus:ring-primary-500 text-primary-600"
+                                    defaultChecked={requirePayment}
+                                  />
+                                </div>
+                                <div className="ml-3 text-sm">
+                                  <p className="text-neutral-900">
+                                    {t("require_payment")} (0.5% +{" "}
+                                    <IntlProvider locale="en">
+                                      <FormattedNumber value={0.1} style="currency" currency={currency} />
+                                    </IntlProvider>{" "}
+                                    {t("commission_per_transaction")})
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {requirePayment && (
+                          <div className="w-full">
+                            <div className="items-center block sm:flex">
+                              <div className="w-full">
+                                <div className="relative mt-1 rounded-sm shadow-sm">
+                                  <input
+                                    type="number"
+                                    name="price"
+                                    id="price"
+                                    step="0.01"
+                                    required
+                                    className="block w-full pl-2 pr-12 border-gray-300 rounded-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                                    placeholder="Price"
+                                    defaultValue={eventType.price > 0 ? eventType.price / 100.0 : undefined}
+                                  />
+                                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                    <span className="text-gray-500 sm:text-sm" id="duration">
+                                      {new Intl.NumberFormat("en", {
+                                        style: "currency",
+                                        currency: currency,
+                                        maximumSignificantDigits: 1,
+                                        maximumFractionDigits: 0,
+                                      })
+                                        .format(0)
+                                        .replace("0", "")}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </>
+                )}
+
                 <Disclosure>
                   {({ open }) => (
                     <>
@@ -862,89 +937,6 @@ const EventTypePage = (props: inferSSRProps<typeof getServerSideProps>) => {
                             />
                           </div>
                         </div>
-
-                        {hasPaymentIntegration && (
-                          <>
-                            <hr className="border-neutral-200" />
-                            <div className="block sm:flex">
-                              <div className="mb-4 min-w-48 sm:mb-0">
-                                <label
-                                  htmlFor="payment"
-                                  className="flex mt-2 text-sm font-medium text-neutral-700">
-                                  {t("payment")}
-                                </label>
-                              </div>
-
-                              <div className="flex flex-col">
-                                <div className="w-full">
-                                  <div className="items-center block sm:flex">
-                                    <div className="w-full">
-                                      <div className="relative flex items-start">
-                                        <div className="flex items-center h-5">
-                                          <input
-                                            onChange={(event) => setRequirePayment(event.target.checked)}
-                                            id="requirePayment"
-                                            name="requirePayment"
-                                            type="checkbox"
-                                            className="w-4 h-4 border-gray-300 rounded focus:ring-primary-500 text-primary-600"
-                                            defaultChecked={requirePayment}
-                                          />
-                                        </div>
-                                        <div className="ml-3 text-sm">
-                                          <p className="text-neutral-900">
-                                            {t("require_payment")} (0.5% +{" "}
-                                            <IntlProvider locale="en">
-                                              <FormattedNumber
-                                                value={0.1}
-                                                style="currency"
-                                                currency={currency}
-                                              />
-                                            </IntlProvider>{" "}
-                                            {t("commission_per_transaction")})
-                                          </p>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                {requirePayment && (
-                                  <div className="w-full">
-                                    <div className="items-center block sm:flex">
-                                      <div className="w-full">
-                                        <div className="relative mt-1 rounded-sm shadow-sm">
-                                          <input
-                                            type="number"
-                                            name="price"
-                                            id="price"
-                                            step="0.01"
-                                            required
-                                            className="block w-full pl-2 pr-12 border-gray-300 rounded-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                                            placeholder="Price"
-                                            defaultValue={
-                                              eventType.price > 0 ? eventType.price / 100.0 : undefined
-                                            }
-                                          />
-                                          <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                            <span className="text-gray-500 sm:text-sm" id="duration">
-                                              {new Intl.NumberFormat("en", {
-                                                style: "currency",
-                                                currency: currency,
-                                                maximumSignificantDigits: 1,
-                                                maximumFractionDigits: 0,
-                                              })
-                                                .format(0)
-                                                .replace("0", "")}
-                                            </span>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          </>
-                        )}
                       </Disclosure.Panel>
                     </>
                   )}
