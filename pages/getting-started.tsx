@@ -61,6 +61,36 @@ export default function Onboarding(props: inferSSRProps<typeof getServerSideProp
       length: 30,
     },
     {
+      title: t("45min_meeting"),
+      slug: "45min",
+      length: 45,
+    },
+    {
+      title: t("hour_meeting"),
+      slug: "hour",
+      length: 60,
+    },
+    {
+      title: t("hour_and_half_meeting"),
+      slug: "hour_and_half",
+      length: 90,
+    },
+    {
+      title: t("two_hours_meeting"),
+      slug: "two_hours",
+      length: 120,
+    },
+    {
+      title: t("two_and_half_hours_meeting"),
+      slug: "two_and_half_hours",
+      length: 150,
+    },
+    {
+      title: t("three_hours_meeting"),
+      slug: "three_hours",
+      length: 180,
+    },
+    {
       title: t("secret_meeting"),
       slug: "secret",
       length: 15,

@@ -1,13 +1,5 @@
 import { SelectorIcon } from "@heroicons/react/outline";
-import {
-  CalendarIcon,
-  ClockIcon,
-  CogIcon,
-  ExternalLinkIcon,
-  LinkIcon,
-  LogoutIcon,
-  PuzzleIcon,
-} from "@heroicons/react/solid";
+import { CalendarIcon, ClockIcon, CogIcon, LinkIcon, LogoutIcon, PuzzleIcon } from "@heroicons/react/solid";
 import { signOut, useSession } from "next-auth/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -15,7 +7,6 @@ import React, { ReactNode, useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 
 import LicenseBanner from "@ee/components/LicenseBanner";
-import HelpMenuItemDynamic from "@ee/lib/intercom/HelpMenuItemDynamic";
 
 import classNames from "@lib/classNames";
 import { shouldShowOnboarding } from "@lib/getting-started";
@@ -29,7 +20,6 @@ import Avatar from "@components/ui/Avatar";
 import Dropdown, {
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@components/ui/Dropdown";
 
@@ -322,7 +312,6 @@ function UserDropdown({ small }: { small?: boolean }) {
             <>
               <span className="flex-grow text-sm">
                 <span className="block font-medium text-gray-900 truncate">{user.name}</span>
-                <span className="block font-normal truncate text-neutral-500">cal.com/{user.username}</span>
               </span>
               <SelectorIcon
                 className="flex-shrink-0 w-5 h-5 text-gray-400 group-hover:text-gray-500"
@@ -333,49 +322,6 @@ function UserDropdown({ small }: { small?: boolean }) {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={`${process.env.NEXT_PUBLIC_APP_URL}/${user?.username || ""}`}
-            className="flex px-4 py-2 text-sm text-gray-700 items-center">
-            <ExternalLinkIcon className="w-5 h-5 mr-3 text-gray-500" /> {t("view_public_page")}
-          </a>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator className="h-px bg-gray-200" />
-        <DropdownMenuItem>
-          <a
-            href="https://cal.com/slack"
-            target="_blank"
-            rel="noreferrer"
-            className="flex px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
-            <svg
-              viewBox="0 0 2447.6 2452.5"
-              className={classNames(
-                "text-gray-500 group-hover:text-gray-700",
-                "mt-0.5 mr-3 flex-shrink-0 h-4 w-4"
-              )}
-              xmlns="http://www.w3.org/2000/svg">
-              <g clipRule="evenodd" fillRule="evenodd">
-                <path
-                  d="m897.4 0c-135.3.1-244.8 109.9-244.7 245.2-.1 135.3 109.5 245.1 244.8 245.2h244.8v-245.1c.1-135.3-109.5-245.1-244.9-245.3.1 0 .1 0 0 0m0 654h-652.6c-135.3.1-244.9 109.9-244.8 245.2-.2 135.3 109.4 245.1 244.7 245.3h652.7c135.3-.1 244.9-109.9 244.8-245.2.1-135.4-109.5-245.2-244.8-245.3z"
-                  fill="#9BA6B6"></path>
-                <path
-                  d="m2447.6 899.2c.1-135.3-109.5-245.1-244.8-245.2-135.3.1-244.9 109.9-244.8 245.2v245.3h244.8c135.3-.1 244.9-109.9 244.8-245.3zm-652.7 0v-654c.1-135.2-109.4-245-244.7-245.2-135.3.1-244.9 109.9-244.8 245.2v654c-.2 135.3 109.4 245.1 244.7 245.3 135.3-.1 244.9-109.9 244.8-245.3z"
-                  fill="#9BA6B6"></path>
-                <path
-                  d="m1550.1 2452.5c135.3-.1 244.9-109.9 244.8-245.2.1-135.3-109.5-245.1-244.8-245.2h-244.8v245.2c-.1 135.2 109.5 245 244.8 245.2zm0-654.1h652.7c135.3-.1 244.9-109.9 244.8-245.2.2-135.3-109.4-245.1-244.7-245.3h-652.7c-135.3.1-244.9 109.9-244.8 245.2-.1 135.4 109.4 245.2 244.7 245.3z"
-                  fill="#9BA6B6"></path>
-                <path
-                  d="m0 1553.2c-.1 135.3 109.5 245.1 244.8 245.2 135.3-.1 244.9-109.9 244.8-245.2v-245.2h-244.8c-135.3.1-244.9 109.9-244.8 245.2zm652.7 0v654c-.2 135.3 109.4 245.1 244.7 245.3 135.3-.1 244.9-109.9 244.8-245.2v-653.9c.2-135.3-109.4-245.1-244.7-245.3-135.4 0-244.9 109.8-244.8 245.1 0 0 0 .1 0 0"
-                  fill="#9BA6B6"></path>
-              </g>
-            </svg>
-            {t("join_our_slack")}
-          </a>
-        </DropdownMenuItem>
-        <HelpMenuItemDynamic />
-        <DropdownMenuSeparator className="h-px bg-gray-200" />
         <DropdownMenuItem>
           <a
             onClick={() => signOut({ callbackUrl: "/auth/logout" })}

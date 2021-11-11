@@ -36,6 +36,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             slug: true,
             hidden: true,
           },
+          orderBy: {
+            length: "asc",
+          },
         },
       },
     });
