@@ -1,7 +1,3 @@
-import { BookOpenIcon, CheckIcon, CodeIcon, DocumentTextIcon } from "@heroicons/react/outline";
-import { ChevronRightIcon } from "@heroicons/react/solid";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
 
 import { useLocale } from "@lib/hooks/useLocale";
@@ -10,31 +6,6 @@ import { HeadSeo } from "@components/seo/head-seo";
 
 export default function Custom404() {
   const { t } = useLocale();
-  const router = useRouter();
-  const username = router.asPath.replace("%20", "-");
-  const links = [
-    {
-      title: t("documentation"),
-      description: t("documentation_description"),
-      icon: DocumentTextIcon,
-      href: "https://docs.cal.com",
-    },
-    {
-      title: t("api_reference"),
-      description: t("api_reference_description"),
-      icon: CodeIcon,
-      href: "https://api.docs.cal.com",
-    },
-    {
-      title: t("blog"),
-      description: t("blog_description"),
-      icon: BookOpenIcon,
-      href: "https://cal.com/blog",
-    },
-  ];
-
-  const isEventType404 = router.asPath.includes("/event-types");
-
   return (
     <>
       <HeadSeo
@@ -52,16 +23,16 @@ export default function Custom404() {
             <h1 className="font-cal mt-2 text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">
               {t("page_doesnt_exist")}
             </h1>
-            {isEventType404 ? (
+            {/* {isEventType404 ? (
               <span className="inline-block mt-2 text-lg ">{t("check_spelling_mistakes_or_go_back")}</span>
             ) : (
               <a href="https://cal.com/signup" className="inline-block mt-2 text-lg ">
                 {t("the_username")} <strong className="text-blue-500">cal.com{username}</strong>{" "}
                 {t("is_still_available")} <span className="text-blue-500">{t("register_now")}</span>.
               </a>
-            )}
+            )} */}
           </div>
-          <div className="mt-12">
+          {/* <div className="mt-12">
             <h2 className="text-sm font-semibold text-gray-500 tracking-wide uppercase">
               {t("popular_pages")}
             </h2>
@@ -164,7 +135,7 @@ export default function Custom404() {
                 </a>
               </Link>
             </div>
-          </div>
+          </div> */}
         </main>
       </div>
     </>
