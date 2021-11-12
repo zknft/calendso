@@ -1,10 +1,17 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import NextCors from "nextjs-cors";
 
 import { hashPassword } from "@lib/auth";
 import prisma from "@lib/prisma";
 import slugify from "@lib/slugify";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  await NextCors(req, res, {
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "*",
+    optionsSuccessStatus: 200,
+  });
+
   if (req.method !== "POST") {
     return;
   }
@@ -28,6 +35,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(422).json({ message: "Invalid input - password should be at least 7 characters long." });
     return;
   }
+
+  console.log("888");
 
   const existingUser = await prisma.user.findFirst({
     where: {
