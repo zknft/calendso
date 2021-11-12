@@ -157,7 +157,7 @@
   "create_an_account": "Create an account",
   "dont_have_an_account": "Don't have an account?",
   "2fa_code": "Two-Factor Code",
-  "sign_in_account": "Sign in to your account",
+  "sign_in_account": "Sign in to your account using CGD credentials",
   "sign_in": "Sign in",
   "go_back_login": "Go back to the login page",
   "error_during_login": "An error occurred when logging you in. Head back to the login screen and try again.",

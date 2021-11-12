@@ -1,4 +1,3 @@
-import { SelectorIcon } from "@heroicons/react/outline";
 import { CalendarIcon, ClockIcon, CogIcon, LinkIcon, LogoutIcon, PuzzleIcon } from "@heroicons/react/solid";
 import { signOut, useSession } from "next-auth/client";
 import Link from "next/link";
@@ -16,12 +15,6 @@ import { trpc } from "@lib/trpc";
 
 import Loader from "@components/Loader";
 import { HeadSeo } from "@components/seo/head-seo";
-import Avatar from "@components/ui/Avatar";
-import Dropdown, {
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@components/ui/Dropdown";
 
 import { useViewerI18n } from "./I18nLanguageHandler";
 import Logo from "./Logo";
@@ -140,12 +133,12 @@ export default function Shell(props: {
       icon: PuzzleIcon,
       current: router.asPath.startsWith("/integrations"),
     },
-    {
-      name: t("settings"),
-      href: "/settings/profile",
-      icon: CogIcon,
-      current: router.asPath.startsWith("/settings"),
-    },
+    // {
+    //   name: t("settings"),
+    //   href: "/settings/profile",
+    //   icon: CogIcon,
+    //   current: router.asPath.startsWith("/settings"),
+    // },
   ];
 
   useEffect(() => {
@@ -299,41 +292,19 @@ function UserDropdown({ small }: { small?: boolean }) {
   const query = useMeQuery();
   const user = query.data;
 
+  console.log(small);
+
   return user ? (
-    <Dropdown>
-      <DropdownMenuTrigger asChild>
-        <div className="flex items-center space-x-2 cursor-pointer group">
-          <Avatar
-            imageSrc={user.avatar}
-            alt={user.username}
-            className={classNames(small ? "w-8 h-8" : "w-10 h-10", "bg-gray-300 rounded-full flex-shrink-0")}
-          />
-          {!small && (
-            <>
-              <span className="flex-grow text-sm">
-                <span className="block font-medium text-gray-900 truncate">{user.name}</span>
-              </span>
-              <SelectorIcon
-                className="flex-shrink-0 w-5 h-5 text-gray-400 group-hover:text-gray-500"
-                aria-hidden="true"
-              />
-            </>
-          )}
-        </div>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem>
-          <a
-            onClick={() => signOut({ callbackUrl: "/auth/logout" })}
-            className="flex px-4 py-2 text-sm cursor-pointer hover:bg-gray-100 hover:text-gray-900">
-            <LogoutIcon
-              className={classNames("text-gray-500 group-hover:text-gray-700", "mr-2 flex-shrink-0 h-5 w-5")}
-              aria-hidden="true"
-            />
-            {t("sign_out")}
-          </a>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </Dropdown>
+    <div className="flex items-center space-x-2 cursor-pointer group">
+      <a
+        onClick={() => signOut({ callbackUrl: "/auth/logout" })}
+        className="flex px-4 py-2 text-sm cursor-pointer hover:bg-gray-100 hover:text-gray-900">
+        <LogoutIcon
+          className={classNames("text-gray-500 group-hover:text-gray-700", "mr-2 flex-shrink-0 h-5 w-5")}
+          aria-hidden="true"
+        />
+        {t("sign_out")}
+      </a>
+    </div>
   ) : null;
 }
