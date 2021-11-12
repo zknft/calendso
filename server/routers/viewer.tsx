@@ -172,10 +172,12 @@ const loggedInViewerRouter = createProtectedRouter()
         hashMap[newItem.id] = { ...oldItem, ...newItem };
         return hashMap;
       }, {} as Record<number, EventTypeGroup["eventTypes"][number]>);
-      const mergedEventTypes = Object.values(eventTypesHashMap).map((et, index) => ({
-        ...et,
-        $disabled: user.plan === "FREE" && index > 0,
-      }));
+      const mergedEventTypes = Object.values(eventTypesHashMap)
+        .map((et, index) => ({
+          ...et,
+          $disabled: user.plan === "FREE" && index > 0,
+        }))
+        .sort((a, b) => a.length - b.length);
 
       eventTypeGroups.push({
         teamId: null,
